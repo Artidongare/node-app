@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+#starting the mongo service
+  mongo_db:
+    container_name: MongoDB_container
+    image: mongo:latest
+    restart: always
+    volumes: 
+      - mongo_db:/data/db
+
+#starting mysql service
+  mysql_db:
+    container_name: MySQLDB_container
+    image: mysql:8.0
+    restart: always
+    volumes:
+      - mysql_db:/data/db
+
+#starting api service
+  api:
+    build: .
+#build image app with 2 version and used here
+#    image: app:2    
+    ports:
+      - "51005:3000"
+    environment:
+#      NODE_ENV: "test"
+      PORT: "3000"
+      MONGOBD_URI: mongodb://mongodb_db:27017
+      DB_NAME: backend_test
+      NAME: Superuser
+      MYSQLDB_URI: mysqldb://mysql_db:3306
+    depends_on:
+      - mongo_db
+      - mysql_db
+
+#to create volumes fo DBs
+volumes:
+  mongo_db: {}
+  mysql_db: {}
+
+
+
+
+
