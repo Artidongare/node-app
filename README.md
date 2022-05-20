@@ -2,6 +2,7 @@
 Created Dockerfile for node
 - docker build -t .    -->. for taking from current folder
 - after build image created
+#
 pull the code and created docker image
 Created docker-compose.yml file 
 - inside docker-compose file created mongo and sql ,pulled images from docker hub and created containers
